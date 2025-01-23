@@ -35,17 +35,21 @@
             baslangicTarihi = new DataGridViewTextBoxColumn();
             bitisTarihi = new DataGridViewTextBoxColumn();
             gorevekleButton = new Button();
+            duzenleButton = new Button();
+            silButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
             // 
+            dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi });
             dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.ImeMode = ImeMode.NoControl;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(660, 150);
+            dataGridView1.Size = new Size(1173, 160);
             dataGridView1.TabIndex = 0;
             // 
             // gorevAdi
@@ -80,23 +84,53 @@
             // 
             // gorevekleButton
             // 
+            gorevekleButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             gorevekleButton.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gorevekleButton.Location = new Point(12, 172);
+            gorevekleButton.Location = new Point(12, 477);
             gorevekleButton.Name = "gorevekleButton";
-            gorevekleButton.Size = new Size(86, 39);
+            gorevekleButton.Size = new Size(91, 46);
             gorevekleButton.TabIndex = 2;
             gorevekleButton.Text = "Görev Ekle";
             gorevekleButton.UseVisualStyleBackColor = true;
             gorevekleButton.Click += gorevekleButton_Click;
             // 
+            // duzenleButton
+            // 
+            duzenleButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            duzenleButton.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            duzenleButton.Location = new Point(12, 529);
+            duzenleButton.Name = "duzenleButton";
+            duzenleButton.Size = new Size(91, 46);
+            duzenleButton.TabIndex = 3;
+            duzenleButton.Text = "Düzenle";
+            duzenleButton.UseVisualStyleBackColor = true;
+            duzenleButton.Click += duzenleButton_Click;
+            // 
+            // silButton
+            // 
+            silButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            silButton.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            silButton.Location = new Point(12, 581);
+            silButton.Name = "silButton";
+            silButton.Size = new Size(91, 46);
+            silButton.TabIndex = 4;
+            silButton.Text = "Sil";
+            silButton.UseVisualStyleBackColor = true;
+            silButton.Click += silButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Control;
-            ClientSize = new Size(660, 424);
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.AIRAKS_LOGO_02;
+            BackgroundImageLayout = ImageLayout.Center;
+            ClientSize = new Size(1173, 639);
+            Controls.Add(silButton);
+            Controls.Add(duzenleButton);
             Controls.Add(gorevekleButton);
             Controls.Add(dataGridView1);
+            DoubleBuffered = true;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Görev Yönetim Uygulaması";
@@ -114,5 +148,7 @@
         private DataGridViewTextBoxColumn oncelikDerecesi;
         private DataGridViewTextBoxColumn baslangicTarihi;
         private DataGridViewTextBoxColumn bitisTarihi;
+        private Button duzenleButton;
+        private Button silButton;
     }
 }
