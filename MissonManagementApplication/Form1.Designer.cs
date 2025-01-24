@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
+            atayan = new DataGridViewTextBoxColumn();
+            atanan = new DataGridViewTextBoxColumn();
             gorevAdi = new DataGridViewTextBoxColumn();
             aciklama = new DataGridViewTextBoxColumn();
             oncelikDerecesi = new DataGridViewTextBoxColumn();
             baslangicTarihi = new DataGridViewTextBoxColumn();
             bitisTarihi = new DataGridViewTextBoxColumn();
+            tamamlandi = new DataGridViewTextBoxColumn();
             gorevekleButton = new Button();
             duzenleButton = new Button();
             silButton = new Button();
@@ -44,13 +47,26 @@
             // 
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { atayan, atanan, gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi, tamamlandi });
             dataGridView1.Dock = DockStyle.Top;
             dataGridView1.ImeMode = ImeMode.NoControl;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1173, 160);
+            dataGridView1.Size = new Size(1202, 160);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+            // 
+            // atayan
+            // 
+            atayan.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            atayan.HeaderText = "Görev Atayan";
+            atayan.Name = "atayan";
+            // 
+            // atanan
+            // 
+            atanan.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            atanan.HeaderText = "Görev Atanan";
+            atanan.Name = "atanan";
             // 
             // gorevAdi
             // 
@@ -82,9 +98,16 @@
             bitisTarihi.HeaderText = "Bitiş Tarihi";
             bitisTarihi.Name = "bitisTarihi";
             // 
+            // tamamlandi
+            // 
+            tamamlandi.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tamamlandi.HeaderText = "Tamamlandı";
+            tamamlandi.Name = "tamamlandi";
+            // 
             // gorevekleButton
             // 
             gorevekleButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            gorevekleButton.BackgroundImageLayout = ImageLayout.Zoom;
             gorevekleButton.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             gorevekleButton.Location = new Point(12, 477);
             gorevekleButton.Name = "gorevekleButton";
@@ -125,7 +148,7 @@
             BackColor = Color.White;
             BackgroundImage = Properties.Resources.AIRAKS_LOGO_02;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(1173, 639);
+            ClientSize = new Size(1202, 639);
             Controls.Add(silButton);
             Controls.Add(duzenleButton);
             Controls.Add(gorevekleButton);
@@ -143,12 +166,15 @@
         private DataGridView dataGridView1;
         private Button button1;
         private Button gorevekleButton;
+        private Button duzenleButton;
+        private Button silButton;
+        private DataGridViewTextBoxColumn atayan;
+        private DataGridViewTextBoxColumn atanan;
         private DataGridViewTextBoxColumn gorevAdi;
         private DataGridViewTextBoxColumn aciklama;
         private DataGridViewTextBoxColumn oncelikDerecesi;
         private DataGridViewTextBoxColumn baslangicTarihi;
         private DataGridViewTextBoxColumn bitisTarihi;
-        private Button duzenleButton;
-        private Button silButton;
+        private DataGridViewTextBoxColumn tamamlandi;
     }
 }

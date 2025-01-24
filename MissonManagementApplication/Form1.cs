@@ -1,4 +1,4 @@
-namespace MissonManagementApplication
+﻿namespace MissonManagementApplication
 {
     public partial class Form1 : Form
     {
@@ -7,7 +7,7 @@ namespace MissonManagementApplication
         {
             InitializeComponent();
         }
-        
+
         private void gorevekleButton_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
@@ -18,49 +18,51 @@ namespace MissonManagementApplication
         }
         private void duzenleButton_Click(object sender, EventArgs e)
         {
-            // DataGridView'de bir sat?r se�ili mi kontrol et
+            // DataGridView'de bir satır seçili mi kontrol et
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                // Se�ili sat?r?n indeksini al
+                // Seçili satırın indeksini al
                 int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
 
-                // Se�ili sat?r?n bilgilerini al
-                string gorevAdi = dataGridView1.Rows[selectedRowIndex].Cells[0].Value?.ToString();
-                string aciklama = dataGridView1.Rows[selectedRowIndex].Cells[1].Value?.ToString();
-                string oncelikDerecesi = dataGridView1.Rows[selectedRowIndex].Cells[2].Value?.ToString();
-                string baslangicTarihi = dataGridView1.Rows[selectedRowIndex].Cells[3].Value?.ToString();
-                string bitisTarihi = dataGridView1.Rows[selectedRowIndex].Cells[4].Value?.ToString();
+                // Seçili satırın bilgilerini al
+                string atayan = dataGridView1.Rows[selectedRowIndex].Cells[0].Value?.ToString();
+                string atanan = dataGridView1.Rows[selectedRowIndex].Cells[1].Value?.ToString();
+                string gorevAdi = dataGridView1.Rows[selectedRowIndex].Cells[2].Value?.ToString();
+                string aciklama = dataGridView1.Rows[selectedRowIndex].Cells[3].Value?.ToString();
+                string oncelikDerecesi = dataGridView1.Rows[selectedRowIndex].Cells[4].Value?.ToString();
+                string baslangicTarihi = dataGridView1.Rows[selectedRowIndex].Cells[5].Value?.ToString();
+                string bitisTarihi = dataGridView1.Rows[selectedRowIndex].Cells[6].Value?.ToString();
 
                 Form2 form2 = new Form2();
 
-                // Form2'yi a� ve mevcut bilgileri ayarla
+                // Form2'yi aç ve mevcut bilgileri ayarla
 
-                form2.gorevBilgileriniAyarla(gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi, selectedRowIndex);
+                form2.gorevBilgileriniAyarla(atayan, atanan, gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi, selectedRowIndex);
 
-                // Form2'nin olay?n? dinle
+                // Form2'nin olayını dinle
                 form2.GorevEkleVeyaDuzenle += Form2_GorevEkleVeyaDuzenle;
 
-                // Form2'yi g�ster
+                // Form2'yi göster
                 form2.ShowDialog();
             }
             else
             {
-                MessageBox.Show("L�tfen d�zenlemek i�in bir sat?r se�in!", "Uyar?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen düzenlemek için bir satır seçin!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void silButton_Click(object sender, EventArgs e)
         {
-            // DataGridView'de bir sat?r se�ili mi kontrol et
+            // DataGridView'de bir satır seçili mi kontrol et
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                // Kullan?c?dan onay al
-                var result = MessageBox.Show("Se�ili g�revi silmek istedi?inizden emin misiniz?", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                // Kullanıcıdan onay al
+                var result = MessageBox.Show("Seçili görevi silmek istediğinizden emin misiniz?", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    // Se�ili sat?r? sil
+                    // Seçili sat?r? sil
                     foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                     {
-                        if (!row.IsNewRow) // Yeni sat?r de?ilse
+                        if (!row.IsNewRow) // Yeni satır değilse
                         {
                             dataGridView1.Rows.Remove(row);
                         }
@@ -69,7 +71,7 @@ namespace MissonManagementApplication
             }
             else
             {
-                MessageBox.Show("L�tfen silmek i�in bir sat?r se�in!", "Uyar?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen silmek için bir satır seçin!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -77,23 +79,28 @@ namespace MissonManagementApplication
         {
             dataGridView1.Rows.Add(gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi);
         }*/
-        private void Form2_GorevEkleVeyaDuzenle(string gorevAdi, string aciklama, string oncelikDerecesi, string baslangicTarihi, string bitisTarihi, int index)
+        private void Form2_GorevEkleVeyaDuzenle(string atayan, string atanan, string gorevAdi, string aciklama, string oncelikDerecesi, string baslangicTarihi, string bitisTarihi, int index)
         {
-            if (index >= 0) // D�zenleme i?lemi
+            if (index >= 0) // Düzenleme işlemi
             {
-                dataGridView1.Rows[index].Cells[0].Value = gorevAdi;
-                dataGridView1.Rows[index].Cells[1].Value = aciklama;
-                dataGridView1.Rows[index].Cells[2].Value = oncelikDerecesi;
-                dataGridView1.Rows[index].Cells[3].Value = baslangicTarihi;
-                dataGridView1.Rows[index].Cells[4].Value = bitisTarihi;
+                dataGridView1.Rows[index].Cells[0].Value = atayan;
+                dataGridView1.Rows[index].Cells[1].Value = atanan;
+                dataGridView1.Rows[index].Cells[2].Value = gorevAdi;
+                dataGridView1.Rows[index].Cells[3].Value = aciklama;
+                dataGridView1.Rows[index].Cells[4].Value = oncelikDerecesi;
+                dataGridView1.Rows[index].Cells[5].Value = baslangicTarihi;
+                dataGridView1.Rows[index].Cells[6].Value = bitisTarihi;
 
             }
-            else // Yeni g�rev ekleme
+            else // Yeni görev ekleme
             {
-                dataGridView1.Rows.Add(gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi);
+                dataGridView1.Rows.Add(atayan, atanan, gorevAdi, aciklama, oncelikDerecesi, baslangicTarihi, bitisTarihi);
             }
         }
 
-        
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+        }
     }
 }

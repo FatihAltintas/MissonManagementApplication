@@ -17,18 +17,33 @@ namespace MissonManagementApplication
         //Form1 form1 = new Form1();
 
         //Form1'e bilgi göndermek için bir event tanımlıyoruz
-        public event Action<string, string, string, string, string, int> GorevEkleVeyaDuzenle;
+        public event Action<string, string, string, string, string, string, string, int> GorevEkleVeyaDuzenle;
 
         private int? gorevIndex; //Düzenlenen satırın indeksini tutar (düzenleme işlemi için)
         public Form2()
         {
             InitializeComponent();
+            atayanTextBox.TabIndex=0;
+            atananTextBox.TabIndex = 1;
+            gorevadiTextBox.TabIndex = 2;
+            aciklamaTextBox.TabIndex = 3;
+            oncelikDerecesiComboBox.TabIndex = 4;
+            baslangicTarihiDateTimePicker.TabIndex = 5;
+            bitisTarihiDateTimePicker.TabIndex=6;
+            ekleButton.TabIndex = 7;
+            iptaletButton.TabIndex = 8;
+
+
+            oncelikDerecesiComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.Controls.Add(oncelikDerecesiComboBox);
         }
-        public void gorevBilgileriniAyarla(string gorevadi, string aciklama, string oncelikderecesi, string baslangictarihi, string bitistarihi, int? index = null)
+        public void gorevBilgileriniAyarla(string atayan, string atanan, string gorevadi, string aciklama, string oncelikderecesi, string baslangictarihi, string bitistarihi, int? index = null)
         {
+            atayanTextBox.Text = atayan;
+            atananTextBox.Text = atanan;
             gorevadiTextBox.Text = gorevadi;
             aciklamaTextBox.Text = aciklama;
-            oncelikderecesiTextBox.Text = oncelikderecesi;
+            oncelikDerecesiComboBox.Text = oncelikderecesi;
             baslangicTarihiDateTimePicker.Text = baslangictarihi;
             bitisTarihiDateTimePicker.Text = bitistarihi;
             gorevIndex = index; //Eğer düzenleme modundaysa satır indeksini tut
@@ -36,9 +51,11 @@ namespace MissonManagementApplication
         //Ekle butonuna tıklandığında çalışacak kod
         private void ekleButton_Click(object sender, EventArgs e)
         {
+            string atayan = atayanTextBox.Text;
+            string atanan = atananTextBox.Text;
             string gorevadi = gorevadiTextBox.Text;
             string aciklama = aciklamaTextBox.Text;
-            string oncelikderecesi = oncelikderecesiTextBox.Text;
+            string oncelikderecesi = oncelikDerecesiComboBox.Text;
             string baslangictarihi = baslangicTarihiDateTimePicker.Text;
             string bitistarihi = bitisTarihiDateTimePicker.Text;
 
@@ -71,7 +88,7 @@ namespace MissonManagementApplication
             }
 
             //Event tetikleniyor ve Form1'e bilgi gönderiliyor
-            GorevEkleVeyaDuzenle?.Invoke(gorevadi, aciklama, oncelikderecesi, baslangictarihi, bitistarihi, gorevIndex ?? -1);
+            GorevEkleVeyaDuzenle?.Invoke(atayan, atanan, gorevadi, aciklama, oncelikderecesi, baslangictarihi, bitistarihi, gorevIndex ?? -1);
 
             //Formu kapat
             this.Hide();
@@ -81,7 +98,23 @@ namespace MissonManagementApplication
         {
             this.Hide();
         }
+        private void atayanTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (atayanTextBox.Text == "  Adı - Soyadı")
+            {
+                atayanTextBox.Clear();
+                atayanTextBox.ForeColor = Color.Black;
+            }
+        }
 
+        private void atananTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (atananTextBox.Text == "  Adı - Soyadı")
+            {
+                atananTextBox.Clear();
+                atananTextBox.ForeColor = Color.Black;
+            }
+        }
         private void gorevadiTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (gorevadiTextBox.Text == "  Görev Adı")
@@ -100,33 +133,6 @@ namespace MissonManagementApplication
             }
         }
 
-        private void oncelikderecesiTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (oncelikderecesiTextBox.Text == "  Öncelik Derecesi")
-            {
-                oncelikderecesiTextBox.Clear();
-                oncelikderecesiTextBox.ForeColor = Color.Black;
-            }
-        }
-
-        private void baslangicTarihiTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (baslangicTarihiTextBox.Text == "  Başlangıç Tarihi")
-            {
-                baslangicTarihiTextBox.Clear();
-                baslangicTarihiTextBox.ForeColor = Color.Black;
-                
-            }
-        }
-
-        private void bitistarihiTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (bitistarihiTextBox.Text == "  Bitiş Tarihi")
-            {
-                bitistarihiTextBox.Clear();
-                bitistarihiTextBox.ForeColor = Color.Black;
-                
-            }
-        }
+        
     }
 }
