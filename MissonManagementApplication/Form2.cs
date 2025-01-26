@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
+using System.Data.SqlClient;
+
 
 namespace MissonManagementApplication
 {
@@ -17,7 +19,7 @@ namespace MissonManagementApplication
         //Form1 form1 = new Form1();
 
         //Form1'e bilgi göndermek için bir event tanımlıyoruz
-        public event Action<string, string, string, string, string, string, string, int> GorevEkleVeyaDuzenle;
+        public event Action<string, string, string, string, string, string, string,string, int> GorevEkleVeyaDuzenle;
 
         private int? gorevIndex; //Düzenlenen satırın indeksini tutar (düzenleme işlemi için)
         public Form2()
@@ -32,12 +34,15 @@ namespace MissonManagementApplication
             bitisTarihiDateTimePicker.TabIndex=6;
             ekleButton.TabIndex = 7;
             iptaletButton.TabIndex = 8;
+            tamamlandiComboBox.TabIndex = 9;
 
 
             oncelikDerecesiComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.Controls.Add(oncelikDerecesiComboBox);
+            tamamlandiComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.Controls.Add(tamamlandiComboBox);
         }
-        public void gorevBilgileriniAyarla(string atayan, string atanan, string gorevadi, string aciklama, string oncelikderecesi, string baslangictarihi, string bitistarihi, int? index = null)
+        public void gorevBilgileriniAyarla(string atayan, string atanan, string gorevadi, string aciklama, string oncelikderecesi, string baslangictarihi, string bitistarihi,string tamamlandi, int? index = null)
         {
             atayanTextBox.Text = atayan;
             atananTextBox.Text = atanan;
@@ -46,6 +51,7 @@ namespace MissonManagementApplication
             oncelikDerecesiComboBox.Text = oncelikderecesi;
             baslangicTarihiDateTimePicker.Text = baslangictarihi;
             bitisTarihiDateTimePicker.Text = bitistarihi;
+            tamamlandiComboBox.Text = tamamlandi;
             gorevIndex = index; //Eğer düzenleme modundaysa satır indeksini tut
         }
         //Ekle butonuna tıklandığında çalışacak kod
@@ -58,9 +64,18 @@ namespace MissonManagementApplication
             string oncelikderecesi = oncelikDerecesiComboBox.Text;
             string baslangictarihi = baslangicTarihiDateTimePicker.Text;
             string bitistarihi = bitisTarihiDateTimePicker.Text;
+            string tamamlandi= tamamlandiComboBox.Text;
 
-
-
+            if (string.IsNullOrWhiteSpace(atayan))
+            {
+                MessageBox.Show("Atayan bilgisi boş bırakılamaz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(atanan))
+            {
+                MessageBox.Show("Atanan bilgisi boş bırakılamaz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             if (string.IsNullOrWhiteSpace(gorevadi))
             {
                 MessageBox.Show("Görev adı boş bırakılamaz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -86,9 +101,14 @@ namespace MissonManagementApplication
                 MessageBox.Show("Bitiş tarihi boş bırakılamaz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            if (string.IsNullOrWhiteSpace(tamamlandi))
+            {
+                MessageBox.Show("Tamamlanma durumu boş bırakılamaz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             //Event tetikleniyor ve Form1'e bilgi gönderiliyor
-            GorevEkleVeyaDuzenle?.Invoke(atayan, atanan, gorevadi, aciklama, oncelikderecesi, baslangictarihi, bitistarihi, gorevIndex ?? -1);
+            GorevEkleVeyaDuzenle?.Invoke(atayan, atanan, gorevadi, aciklama, oncelikderecesi, baslangictarihi, bitistarihi,tamamlandi, gorevIndex ?? -1);
 
             //Formu kapat
             this.Hide();
